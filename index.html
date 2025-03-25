@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <!-- Meta tags for social media banners, these should be filled in appropriatly as they are your "business card" -->
+  <!-- Replace the content tag with appropriate information -->
+  <meta name="description" content="FullDiT: Multi-Task Video Generative Foundation Model with Full Attention">
+  <meta property="og:title" content="FullDiT" />
+  <meta property="og:description" content="Creating synchronized multi-camera videos!" />
+  <meta property="og:url" content="URL OF THE WEBSITE" />
+  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X630-->
+  <meta property="og:image" content="pics/icon.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+
+  <meta name="twitter:title" content="FullDiT">
+  <meta name="twitter:description" content="Creating synchronized multi-camera videos!">
+  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X600-->
+  <meta name="twitter:image" content="pics/icon.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <!-- Keywords for your paper to be indexed by-->
+  <meta name="keywords" content="KEYWORDS SHOULD BE PLACED HERE">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+  <title>FullDiT: Multi-Task Video Generative Foundation Model with Full Attention</title>
+  <link rel="icon" type="image/x-icon" href="pics/icon.png">
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script src="static/js/bulma-carousel.min.js"></script>
+  <script src="static/js/bulma-slider.min.js"></script>
+  <script src="static/js/index.js"></script>
+</head>
+
+<body>
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <img src="pics/icon.png" style="height:80px; margin-bottom: 10px; margin-top: 10px;"></img>
+            <h1 class="title is-2 publication-title">Multi-Task Video Generative Foundation Model with Full Attention</h1>
+            <div class="is-size-5 publication-authors">
+              <!-- Paper authors -->
+              <span class="author-block">
+                <a href="https://juxuan27.github.io/">Xuan Ju</a><sup>12</sup>,</span>
+              <span class="author-block">
+                <a href="https://ywcmaike.github.io/">Weicai Ye</a><sup>1*</sup>,</span>
+              <span class="author-block">
+                <a href="https://liuquande.github.io/">Quande Liu</a><sup>1</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://openreview.net/profile?id=~Qiulin_Wang1">Qiulin Wang</a><sup>1</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://xinntao.github.io/">Xintao Wang</a><sup>1</sup>,</span>
+              </span>
+              <br>
+              <span class="author-block">
+                <a href="https://scholar.google.com/citations?user=P6MraaYAAAAJ&hl=en">Pengfei Wan</a><sup>1</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://openreview.net/profile?id=~Di_ZHANG3">Di Zhang</a><sup>1</sup>,
+              </span>
+              <span class="author-block">
+                <a
+                  href="https://scholar.google.com/citations?user=PXO4ygEAAAAJ">Kun Gai</a><sup>1</sup>
+              </span>
+              <span class="author-block">
+                <a
+                  href="https://scholar.google.com/citations?user=eSiKPqUAAAAJ&hl=zh-CN">Qiang Xu</a><sup>2*</sup>
+              </span>
+            </div>
+            
+            <div class="is-size-5 publication-authors">
+              <span class="author-block"><sup>1</sup>Kuaishou Technology,</span>&nbsp;
+              <span class="author-block"><sup>2</sup>The Chinese University of Hong Kong,</span>&nbsp;
+              <span class="author-block"><sup>*</sup>Corresponding Author</span>
+            </div>
+
+            <div class="column has-text-centered">
+              <div class="publication-links">
+                <!-- ArXiv abstract Link -->
+                <span class="link-block">
+                  <a href="xxxxxxxx" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon"> 
+                      <i class="ai ai-arxiv"></i>
+                    </span>
+                    <span>arXiv</span>
+                  </a>
+                </span>
+
+                <!-- Hugging Face Demo link with an image icon -->
+                <span class="link-block">
+                  <a href="https://huggingface.co/datasets/juxuan27/FullBench" target="_blank" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <img src="pics/hf.png" alt="Benchmark">
+                    </span>
+                    <span>Benchmark</span>
+                  </a>
+                </span>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- <p class="prompt_single_vid"> -->
+  <section class="hero is-small" style="margin-top: -50px;">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-">
+            <h2 class="subtitle has-text-justified">
+              <b>TL;DR:</b> We propose SynCamMaster, a unified foundation model for video generation that seamlessly integrates multiple conditions via unified full-attention mechanisms. <br><br>
+            </h2>
+            <div class="columns is-centered has-text-justified">
+              <td colspan="3">
+                <video autoplay="autoplay" loop="loop" width="100%" preload controls>
+                  <source src="./videos/presentation.mp4" type="video/mp4">
+                </video>
+              </td>
+            </div>
+          </div>
+  </section>
+
+  <br>
+  <br>
+
+  <section class="hero">
+    <div class="container is-max-desktop">
+      <div class="hero-body">
+        <div class="columns is-centered has-text-centered">
+          <div class="column custom-width">
+            <br>
+            <h2 class="title is-2">Demos</h2>
+            <h2 class="title is-4">Camera+Identities+Depth+Text ⮕ Video</h2>
+            <div class="content has-text-justified">
+              <div id="results-carousel" class="carousel results-carousel" align="center">
+                <div class="item item-video1">
+                  <table width="900" align="center">
+                    <style>
+                      table, th, td {
+                        border: none;
+                      }
+                    </style>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>
+                            <br>
+                            <div style="text-align: center; margin-bottom: 10px; margin-top: -50px;">
+                              <img src="results/camera+ids+depth/2/condition.png" width="60%" />
+                            </div>
+                            <div style="text-align: center; margin-bottom: 10px; margin-top: -10px;">
+                              <video src="results/camera+ids+depth/2/result.mp4"
+                                autoplay loop controls muted width="40%"></video>
+                            </div>
+                            <br>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </table>
+                </div>
+
+                <div class="item item-video1">
+                  <table width="900" align="center">
+                    <style>
+                      table, th, td {
+                        border: none;
+                      }
+                    </style>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>
+                            <br>
+                            <div style="text-align: center; margin-bottom: 10px; margin-top: -50px;">
+                              <img src="results/camera+ids+depth/8/condition.png" width="60%" />
+                            </div>
+                            <div style="text-align: center; margin-bottom: 18px; margin-top: -10px;">
+                              <video src="results/camera+ids+depth/8/result.mp4"
+                                autoplay loop controls muted width="40%"></video>
+                            </div>
+                            <br>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </table>
+                </div>
+
+                <div class="item item-video1">
+                  <table width="900" align="center">
+                    <style>
+                      table, th, td {
+                        border: none;
+                      }
+                    </style>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>
+                            <br>
+                            <div style="text-align: center; margin-bottom: 10px; margin-top: -50px;">
+                              <img src="results/camera+ids+depth/5/condition.png" width="60%" />
+                            </div>
+                            <div style="text-align: center; margin-bottom: 18px; margin-top: -10px;">
+                              <video src="results/camera+ids+depth/5/result.mp4"
+                                autoplay loop controls muted width="40%"></video>
+                            </div>
+                            <br>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </table>
+                </div>
+
+                <div class="item item-video1">
+                  <table width="900" align="center">
+                    <style>
+                      table, th, td {
+                        border: none;
+                      }
+                    </style>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>
+                            <br>
+                            <div style="text-align: center; margin-bottom: 10px; margin-top: -50px;">
+                              <img src="results/camera+ids+depth/9/condition.png" width="60%" />
+                            </div>
+                            <div style="text-align: center; margin-bottom: 18px; margin-top: -10px;">
+                              <video src="results/camera+ids+depth/9/result.mp4"
+                                autoplay loop controls muted width="40%"></video>
+                            </div>
+                            <br>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </table>
+                </div>
+
+                <div class="item item-video1">
+                  <table width="900" align="center">
+                    <style>
+                      table, th, td {
+                        border: none;
+                      }
+                    </style>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>
+                            <br>
+                            <div style="text-align: center; margin-bottom: 10px; margin-top: -50px;">
+                              <img src="results/camera+ids+depth/4/condition.png" width="50%" />
+                            </div>
+                            <div style="text-align: center; margin-bottom: 18px; margin-top: -10px;">
+                              <video src="results/camera+ids+depth/4/result.mp4"
+                                autoplay loop controls muted width="40%"></video>
+                            </div>
+                            <br>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </table>
+                </div>
+
+                <div class="item item-video1">
+                  <table width="900" align="center">
+                    <style>
+                      table, th, td {
+                        border: none;
+                      }
+                    </style>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>
+                            <br>
+                            <div style="text-align: center; margin-bottom: 10px; margin-top: -50px;">
+                              <img src="results/camera+ids+depth/6/condition.png" width="60%" />
+                            </div>
+                            <div style="text-align: center; margin-bottom: 18px; margin-top: -10px;">
+                              <video src="results/camera+ids+depth/6/result.mp4"
+                                autoplay loop controls muted width="40%"></video>
+                            </div>
+                            <br>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </table>
+                </div>
+                                
+              </div>
+            </div>
+
+            <h2 class="title is-4">Camera+Identities+Text ⮕ Video</h2>
+            <div class="content has-text-justified">
+              <div id="results-carousel" class="carousel results-carousel" align="center">
+                <div class="item item-video1">
+                  <table width="900" align="center">
+                    <style>
+                      table, th, td {
+                        border: none;
+                      }
+                    </style>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>
+                            <br>
+                            <div style="text-align: center; margin-bottom: 10px; margin-top: -50px;">
+                              <img src="results/camera+ids/1/condition.png" width="50%" />
+                            </div>
+                            <div style="text-align: center; margin-bottom: 10px; margin-top: -10px;">
+                              <video src="results/camera+ids/1/result.mp4"
+                                autoplay loop controls muted width="40%"></video>
+                            </div>
+                            <br>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </table>
+                </div>
+
+                <div class="item item-video1">
+                  <table width="900" align="center">
+                    <style>
+                      table, th, td {
+                        border: none;
+                      }
+                    </style>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>
+                            <br>
+                            <div style="text-align: center; margin-bottom: 10px; margin-top: -50px;">
+                              <img src="results/camera+ids/17/condition.png" width="50%" />
+                            </div>
+                            <div style="text-align: center; margin-bottom: 18px; margin-top: -10px;">
+                              <video src="results/camera+ids/17/result.mp4"
+                                autoplay loop controls muted width="40%"></video>
+                            </div>
+                            <br>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </table>
+                </div>
+
+                <div class="item item-video1">
+                  <table width="900" align="center">
+                    <style>
+                      table, th, td {
+                        border: none;
+                      }
+                    </style>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>
+                            <br>
+                            <div style="text-align: center; margin-bottom: 10px; margin-top: -50px;">
+                              <img src="results/camera+ids/10/condition.png" width="50%" />
+                            </div>
+                            <div style="text-align: center; margin-bottom: 18px; margin-top: -10px;">
+                              <video src="results/camera+ids/10/result.mp4"
+                                autoplay loop controls muted width="40%"></video>
+                            </div>
+                            <br>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </table>
+                </div>
+                                
+              </div>
+            </div>
+
+            <h2 class="title is-4">Identities+Depth+Text ⮕ Video</h2>
+            <div class="content has-text-justified">
+              <div id="results-carousel" class="carousel results-carousel" align="center">
+                <div class="item item-video1">
+                  <table width="900" align="center">
+                    <style>
+                      table, th, td {
+                        border: none;
+                      }
+                    </style>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>
+                            <br>
+                            <div style="text-align: center; margin-bottom: 10px; margin-top: -50px;">
+                              <img src="results/ids+depth/1/condition.png" width="50%" />
+                            </div>
+                            <div style="text-align: center; margin-bottom: 10px; margin-top: -10px;">
+                              <video src="results/ids+depth/1/result.mp4"
+                                autoplay loop controls muted width="40%"></video>
+                            </div>
+                            <br>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </table>
+                </div>
+
+                <div class="item item-video1">
+                  <table width="900" align="center">
+                    <style>
+                      table, th, td {
+                        border: none;
+                      }
+                    </style>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>
+                            <br>
+                            <div style="text-align: center; margin-bottom: 10px; margin-top: -50px;">
+                              <img src="results/ids+depth/5/condition.png" width="50%" />
+                            </div>
+                            <div style="text-align: center; margin-bottom: 18px; margin-top: -10px;">
+                              <video src="results/ids+depth/5/result.mp4"
+                                autoplay loop controls muted width="40%"></video>
+                            </div>
+                            <br>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </table>
+                </div>
+
+                <div class="item item-video1">
+                  <table width="900" align="center">
+                    <style>
+                      table, th, td {
+                        border: none;
+                      }
+                    </style>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>
+                            <br>
+                            <div style="text-align: center; margin-bottom: 10px; margin-top: -50px;">
+                              <img src="results/ids+depth/4/condition.png" width="50%" />
+                            </div>
+                            <div style="text-align: center; margin-bottom: 18px; margin-top: -10px;">
+                              <video src="results/ids+depth/4/result.mp4"
+                                autoplay loop controls muted width="40%"></video>
+                            </div>
+                            <br>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </table>
+                </div>
+                                
+              </div>
+            </div>
+
+            <h2 class="title is-4">Identities+Text ⮕ Video</h2>
+            <div class="content has-text-justified">
+              <div id="results-carousel" class="carousel results-carousel" align="center">
+                <div class="item item-video1">
+                  <table width="900" align="center">
+                    <style>
+                      table, th, td {
+                        border: none;
+                      }
+                    </style>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>
+                            <br>
+                            <div style="text-align: center; margin-bottom: 10px; margin-top: -50px;">
+                              <img src="results/ids/11/condition.png" width="40%" />
+                            </div>
+                            <div style="text-align: center; margin-bottom: 10px; margin-top: -10px;">
+                              <video src="results/ids/11/result.mp4"
+                                autoplay loop controls muted width="40%"></video>
+                            </div>
+                            <br>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </table>
+                </div>
+
+                <div class="item item-video1">
+                  <table width="900" align="center">
+                    <style>
+                      table, th, td {
+                        border: none;
+                      }
+                    </style>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>
+                            <br>
+                            <div style="text-align: center; margin-bottom: 10px; margin-top: -50px;">
+                              <img src="results/ids/15/condition.png" width="40%" />
+                            </div>
+                            <div style="text-align: center; margin-bottom: 18px; margin-top: -10px;">
+                              <video src="results/ids/15/result.mp4"
+                                autoplay loop controls muted width="40%"></video>
+                            </div>
+                            <br>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </table>
+                </div>
+
+                <div class="item item-video1">
+                  <table width="900" align="center">
+                    <style>
+                      table, th, td {
+                        border: none;
+                      }
+                    </style>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>
+                            <br>
+                            <div style="text-align: center; margin-bottom: 10px; margin-top: -50px;">
+                              <img src="results/ids/13/condition.png" width="40%" />
+                            </div>
+                            <div style="text-align: center; margin-bottom: 18px; margin-top: -10px;">
+                              <video src="results/ids/13/result.mp4"
+                                autoplay loop controls muted width="40%"></video>
+                            </div>
+                            <br>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </table>
+                </div>
+                                
+              </div>
+            </div>
+
+            <h2 class="title is-4">Depth+Text ⮕ Video</h2>
+            <div class="content has-text-justified">
+              <div id="results-carousel" class="carousel results-carousel" align="center">
+                <div class="item item-video1">
+                  <table width="900" align="center">
+                    <style>
+                      table, th, td {
+                        border: none;
+                      }
+                    </style>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>
+                            <br>
+                            <div style="text-align: center; margin-bottom: 10px; margin-top: -50px;">
+                              <img src="results/depth/16/condition.png" width="40%" />
+                            </div>
+                            <div style="text-align: center; margin-bottom: 10px; margin-top: -10px;">
+                              <video src="results/depth/16/result.mp4"
+                                autoplay loop controls muted width="40%"></video>
+                            </div>
+                            <br>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </table>
+                </div>
+
+                <div class="item item-video1">
+                  <table width="900" align="center">
+                    <style>
+                      table, th, td {
+                        border: none;
+                      }
+                    </style>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>
+                            <br>
+                            <div style="text-align: center; margin-bottom: 10px; margin-top: -50px;">
+                              <img src="results/depth/5/condition.png" width="40%" />
+                            </div>
+                            <div style="text-align: center; margin-bottom: 18px; margin-top: -10px;">
+                              <video src="results/depth/5/result.mp4"
+                                autoplay loop controls muted width="40%"></video>
+                            </div>
+                            <br>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </table>
+                </div>
+
+                <div class="item item-video1">
+                  <table width="900" align="center">
+                    <style>
+                      table, th, td {
+                        border: none;
+                      }
+                    </style>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>
+                            <br>
+                            <div style="text-align: center; margin-bottom: 10px; margin-top: -50px;">
+                              <img src="results/depth/2/condition.png" width="40%" />
+                            </div>
+                            <div style="text-align: center; margin-bottom: 18px; margin-top: -10px;">
+                              <video src="results/depth/2/result.mp4"
+                                autoplay loop controls muted width="40%"></video>
+                            </div>
+                            <br>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </table>
+                </div>
+                                
+              </div>
+            </div>
+
+            <h2 class="title is-4">Camera+Text ⮕ Video</h2>
+            <div class="content has-text-justified">
+              <div id="results-carousel" class="carousel results-carousel" align="center">
+                <div class="item item-video1">
+                  <table width="900" align="center">
+                    <style>
+                      table, th, td {
+                        border: none;
+                      }
+                    </style>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>
+                            <br>
+                            <div style="text-align: center; margin-bottom: 10px; margin-top: -50px;">
+                              <img src="results/camera/17/condition.png" width="30%" />
+                            </div>
+                            <div style="text-align: center; margin-bottom: 10px; margin-top: -15px;">
+                              <video src="results/camera/17/result.mp4"
+                                autoplay loop controls muted width="40%"></video>
+                            </div>
+                            <br>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </table>
+                </div>
+
+                <div class="item item-video1">
+                  <table width="900" align="center">
+                    <style>
+                      table, th, td {
+                        border: none;
+                      }
+                    </style>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>
+                            <br>
+                            <div style="text-align: center; margin-bottom: 10px; margin-top: -50px;">
+                              <img src="results/camera/1/condition.png" width="30%" />
+                            </div>
+                            <div style="text-align: center; margin-bottom: 18px; margin-top: -15px;">
+                              <video src="results/camera/1/result.mp4"
+                                autoplay loop controls muted width="40%"></video>
+                            </div>
+                            <br>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </table>
+                </div>
+
+                <div class="item item-video1">
+                  <table width="900" align="center">
+                    <style>
+                      table, th, td {
+                        border: none;
+                      }
+                    </style>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>
+                            <br>
+                            <div style="text-align: center; margin-bottom: 10px; margin-top: -50px;">
+                              <img src="results/camera/3/condition.png" width="30%" />
+                            </div>
+                            <div style="text-align: center; margin-bottom: 18px; margin-top: -15px;">
+                              <video src="results/camera/3/result.mp4"
+                                autoplay loop controls muted width="40%"></video>
+                            </div>
+                            <br>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </table>
+                </div>
+                                
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- Paper abstract -->
+  <section class="section hero is-light">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-2">Abstract</h2>
+          <div class="content has-text-justified">
+            <p>
+              Current video generative foundation models primarily focus on text-to-video tasks, providing limited control for fine-grained video content creation. Although adapter-based approaches (e.g., ControlNet) enable additional controls with minimal fine-tuning, they encounter challenges when integrating multiple conditions, including: <b>branch conflicts</b> between independently trained adapters, <b>parameter redundancy</b> leading to increased computational cost, and <b>suboptimal performance</b> compared to full fine-tuning. To address these challenges, we introduce <b>FullDiT</b>, a unified foundation model for video generation that seamlessly integrates multiple conditions via unified full-attention mechanisms. By fusing multi-task conditions into a unified sequence representation and leveraging the long-context learning ability of full self-attention to capture condition dynamics, FullDiT reduces parameter overhead, avoids conditions conflict, and shows scalability and emergent ability. We further introduce <b>FullBench</b> for multi-task video generation evaluation. Experiments demonstrate that FullDiT achieves state-of-the-art results, highlighting the efficacy of full-attention in complex multi-task video generation.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End paper abstract -->
+
+
+
+  <!-- Paper poster -->
+  <section class="hero is-small">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-">
+            <h2 class="title is-2">Method</h2>
+            <div class="content has-text-justified">
+              <td colspan="3">
+                <p>
+                  <b>Overview of FullDiT architecture and comparison with adapter-based models.</b> We present the diffusion process of the multi-task video generative model on the left. For research purposes, this paper shows input conditions consisting of <b>temporal-only</b> cameras, <b>spatial-only</b> identities, and <b>temporal-spatial</b> depth video. Additional conditions can be incorporated into this model architecture for broader applications. Shown in (a), FullDiT unifies various inputs with procedures: (1) patchify and tokenize the input condition to a unified sequence representation, (2) concat all sequences together to a longer one, and (3) learn condition dynamics with full self-attention. By comparison, earlier adapter-based approaches (shown in (b)) use distinct adapter designs that operate independently to process various inputs. The subscript of each block signifies its layer index, while the superscript indicates the condition index associated with the module.
+                </p>
+              </td>
+            </div>
+            <div class="columns is-centered has-text-justified">
+              <td colspan="3">
+                <img src="pics/fig_pipe.png" width="100%" />
+              </td>
+            </div>
+            <p><br></p>
+          </div>
+  </section>
+  <!--End paper poster -->
+
+
+  <!-- Video grid single ref -->
+  <section class="hero is-small is-light">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+          <div class="column custom-width">
+            <h2 class="title is-2">Comparisons</h2>
+
+            <div class="content has-text-justified my_link">
+              <td colspan="3">
+                <p>
+                  <b>Quantitative comparison of single task video generation.</b> We compare FullDiT with MotionCtrl<a href="#ref-motionctrl">[1]</a>, CameraCtrl <a href="#ref-cameractrl">[2]</a>, and CamI2V <a href="#ref-cami2v">[3]</a> on camera-to-video generation. For identity-to-video, due to a lack of open-source multiple identities video generation method, we compare with the internal 1B model: ConceptMaster <a href="#ref-conceptmaster">[4]</a>. We compare FullDiT with Ctrl-Adapter <a href="#ref-ctrladapter">[5]</a> and ControlVideo <a href="#ref-ctrlvideo">[6]</a> for depth-to-video. We follow the default setting of each model for evaluation. Since most of previous methods can generate only 16 frames of video, we uniformly sample 16 frames from methods that generate more than 16 frames for comparison.
+                </p>
+                <!-- <p><br></p> -->
+              </td>
+            </div>
+
+            <div class="columns is-centered has-text-justified">
+              <td colspan="3">
+                <img src="pics/metrics_comparison.png" width="70%" />
+              </td>
+            </div>
+
+            <div class="content has-text-justified my_link">
+              <td colspan="3">
+                <p>
+                <b>Qualitative comparison of FullDiT and previous single control video generation methods.</b> We present identity-to-video results compared with ConceptMaster<a href="#ref-conceptmaster">[4]</a>, depth-to-video results compared with Ctrl-Adapter<a href="#ref-ctrladapter">[5]</a> and ControlVideo<a href="#ref-ctrlvideo">[6]</a>, and camera-to-video results compared with MotionCtrl<a href="#ref-motionctrl">[1]</a>, CamI2V<a href="#ref-cami2v">[3]</a>, and CameraCtrl<a href="#ref-cameractrl">[2]</a>. Results denoted with * are image-to-video methods.
+                </p>
+                <!-- <p><br></p> -->
+              </td>
+            </div>
+
+            <div class="columns is-centered has-text-justified">
+              <td colspan="3">
+                <img src="pics/visual_comparison.png" width="90%" />
+              </td>
+            </div>
+              
+        </div>
+  </section>
+  
+  <section class="hero is-small">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+          <div class="column custom-width">
+            <!-- <h2 class="title is-2"></h2> -->
+            <div class="content has-text-justified" style="margin-top: -10px;">
+              
+              <b>Reference:</b> <br>
+                <a name="ref-motionctrl" id="ref-motionctrl"></a>
+                [1] Wang Z, Yuan Z, Wang X, et al. Motionctrl: A unified and flexible motion controller for video generation[C]//ACM SIGGRAPH 2024 Conference Papers. 2024: 1-11.<br>
+                <a name="ref-cameractrl" id="ref-cameractrl"></a>
+                [2] He H, Xu Y, Guo Y, et al. Cameractrl: Enabling camera control for text-to-video generation[J]. arXiv preprint arXiv:2404.02101, 2024.<br>
+                <a name="ref-cami2v" id="ref-cami2v"></a>
+                [3] Zheng G, Li T, Jiang R, et al. Cami2v: Camera-controlled image-to-video diffusion model[J]. arXiv preprint arXiv:2410.15957, 2024.<br>
+                <a name="ref-conceptmaster" id="ref-conceptmaster"></a>
+                [4] Huang Y, Yuan Z, Liu Q, et al. ConceptMaster: Multi-Concept Video Customization on Diffusion Transformer Models Without Test-Time Tuning[J]. arXiv preprint arXiv:2501.04698, 2025.<br>
+                <a name="ref-ctrladapter" id="ref-ctrladapter"></a>
+                [5] Lin H, Cho J, Zala A, et al. Ctrl-adapter: An efficient and versatile framework for adapting diverse controls to any diffusion model[J]. arXiv preprint arXiv:2404.09967, 2024.<br>
+                <a name="ref-ctrlvideo" id="ref-ctrlvideo"></a>
+                [6] Zhang Y, Wei Y, Jiang D, et al. Controlvideo: Training-free controllable text-to-video generation[J]. arXiv preprint arXiv:2305.13077, 2023.<br>
+                <br>
+                <br>
+                <b>Acknowledgments:</b> <br>We thank Yawen Luo, Qinghe Wang, Yuzhou Huang, Ziyang Yuan, Xiaoyu Shi, Menghan Xia, Jianhong Bai, Zhixue Fang from Kuaishou Technology for their invaluable assistance in constructing the training dataset, as well as their insightful suggestions and discussions.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+      <footer class="footer">
+        <div class="container">
+          <div class="columns is-centered">
+            <div class="column is-8">
+              <div class="content">
+
+                <p>
+                  This page was built using the <a
+                    href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic
+                    Project Page Template</a> and <a href="https://diffusion-tokenflow.github.io/">TokenFlow</a>.
+                  <br> This website is licensed under a <a rel="license"
+                    href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
+                    Commons Attribution-ShareAlike 4.0 International License</a>.
+                </p>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+
+      <!-- Statcounter tracking code -->
+
+      <!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
+
+      <!-- End of Statcounter Code -->
+      <script>
+        window.addEventListener('DOMContentLoaded', (event) => {
+          const videoWrappers = document.querySelectorAll('.video-wrapper');
+
+          videoWrappers.forEach(wrapper => {
+            const defaultVideo = wrapper.querySelector('.default-video');
+            const aspectRatio = defaultVideo.videoWidth / defaultVideo.videoHeight;
+            const height = wrapper.offsetWidth / aspectRatio;
+
+            wrapper.style.height = `${height}px`;
+
+            wrapper.addEventListener('mouseenter', () => {
+              defaultVideo.pause();
+              hoverVideo.play();
+            });
+
+            wrapper.addEventListener('mouseleave', () => {
+              defaultVideo.play();
+              hoverVideo.pause();
+            });
+          });
+        });
+        $(document).ready(function () {
+          var carouselItems = $('.carousel .item');
+          var numItems = carouselItems.length;
+          var numVideos = 5;
+          var currentIndex = 0;
+
+          $('.carousel').on('click', function () {
+            currentIndex++;
+            if (currentIndex + numVideos <= numItems) {
+              carouselItems.removeClass('active');
+              carouselItems.slice(currentIndex, currentIndex + numVideos).addClass('active');
+            } else {
+              currentIndex = 0;
+              carouselItems.removeClass('active');
+              carouselItems.slice(currentIndex, currentIndex + numVideos).addClass('active');
+            }
+          });
+
+          carouselItems.slice(currentIndex, currentIndex + numVideos).addClass('active');
+        });
+      </script>
+    </div>
+  
+</body>
+
+</html>
