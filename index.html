@@ -10,7 +10,7 @@
   <meta property="og:description" content="Multi-Task Video Generative Foundation Model with Full Attention" />
   <meta property="og:url" content="URL OF THE WEBSITE" />
   <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X630-->
-  <meta property="og:image" content="pics/icon.png" />
+  <meta property="og:image" content="pics/logo_square.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
 
@@ -18,15 +18,15 @@
   <meta name="twitter:title" content="FullDiT">
   <meta name="twitter:description" content="Multi-Task Video Generative Foundation Model with Full Attention">
   <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X600-->
-  <meta name="twitter:image" content="pics/icon.png">
-  <meta name="twitter:card" content="pics/fig_pipe.png">
+  <meta name="twitter:image" content="pics/logo_square.png">
+  <meta name="twitter:card" content="pics/logo_square.png">
   <!-- Keywords for your paper to be indexed by-->
   <meta name="keywords" content="KEYWORDS SHOULD BE PLACED HERE">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
   <title>FullDiT: Multi-Task Video Generative Foundation Model with Full Attention</title>
-  <link rel="icon" type="image/x-icon" href="pics/icon.png">
+  <link rel="icon" type="image/x-icon" href="pics/logo_square.png">
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
 
   <link rel="stylesheet" href="static/css/bulma.min.css">
@@ -77,7 +77,7 @@
               </span>
               <span class="author-block">
                 <a
-                  href="https://scholar.google.com/citations?user=PXO4ygEAAAAJ">Kun Gai</a><sup>1</sup>
+                  href="https://scholar.google.com/citations?user=PXO4ygEAAAAJ">Kun Gai</a><sup>1</sup>,
               </span>
               <span class="author-block">
                 <a
@@ -137,11 +137,112 @@
                 </video>
               </td>
             </div>
+
+            <div class="columns is-centered has-text-justified" style="margin-top: 50px;">
+              <td colspan="3">
+                <img src="pics/fig_pipe.png" width="100%" />
+              </td>
+            </div>
+
           </div>
   </section>
 
   <br>
   <br>
+
+
+  <!-- Paper abstract -->
+  <section class="section hero is-light">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-2">Abstract</h2>
+          <div class="content has-text-justified">
+            <p>
+              Current video generative foundation models primarily focus on text-to-video tasks, providing limited control for fine-grained video content creation. Although adapter-based approaches (e.g., ControlNet) enable additional controls with minimal fine-tuning, they encounter challenges when integrating multiple conditions, including: <b>branch conflicts</b> between independently trained adapters, <b>parameter redundancy</b> leading to increased computational cost, and <b>suboptimal performance</b> compared to full fine-tuning. To address these challenges, we introduce <b>FullDiT</b>, a unified foundation model for video generation that seamlessly integrates multiple conditions via unified full-attention mechanisms. By fusing multi-task conditions into a unified sequence representation and leveraging the long-context learning ability of full self-attention to capture condition dynamics, FullDiT reduces parameter overhead, avoids conditions conflict, and shows scalability and emergent ability. We further introduce <b>FullBench</b> for multi-task video generation evaluation. Experiments demonstrate that FullDiT achieves state-of-the-art results, highlighting the efficacy of full-attention in complex multi-task video generation.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End paper abstract -->
+
+
+
+  <!-- Paper poster -->
+  <section class="hero is-small">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-">
+            <h2 class="title is-2">Method</h2>
+            <div class="content has-text-justified">
+              <td colspan="3">
+                <p>
+                  <b>Overview of FullDiT architecture and comparison with adapter-based models.</b> We present the diffusion process of the multi-task video generative model on the left. For research purposes, this paper shows input conditions consisting of <b>temporal-only</b> cameras, <b>spatial-only</b> identities, and <b>temporal-spatial</b> depth video. Additional conditions can be incorporated into this model architecture for broader applications. Shown in (a), FullDiT unifies various inputs with procedures: (1) patchify and tokenize the input condition to a unified sequence representation, (2) concat all sequences together to a longer one, and (3) learn condition dynamics with full self-attention. By comparison, earlier adapter-based approaches (shown in (b)) use distinct adapter designs that operate independently to process various inputs. The subscript of each block signifies its layer index.
+                </p>
+                <p>
+                  <b>Advantages:</b> <br>
+                  (1) Long-context learning ability ⮕ Better performance and controllability <br>
+                  (2) Unified Representation ⮕ Scalable extension to additional modalities or conditions without major architectural modifications <br>
+                  (3) Strong scalability ⮕ Higher training data utilization rate <br>
+                  (4) Emergent capabilities ⮕  Generalizing to previously unseen combinations of conditions
+                </p>
+              </td>
+            </div>
+            <div class="columns is-centered has-text-justified">
+              <td colspan="3">
+                <img src="pics/fig_pipe.png" width="100%" />
+              </td>
+            </div>
+            <p><br></p>
+          </div>
+  </section>
+  <!--End paper poster -->
+
+
+  <!-- Video grid single ref -->
+  <section class="hero is-small is-light">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+          <div class="column custom-width">
+            <h2 class="title is-2">Comparisons</h2>
+
+            <div class="content has-text-justified my_link">
+              <td colspan="3">
+                <p>
+                  <b>Quantitative comparison of single task video generation.</b> We compare FullDiT with MotionCtrl<a href="#ref-motionctrl">[1]</a>, CameraCtrl <a href="#ref-cameractrl">[2]</a>, and CamI2V <a href="#ref-cami2v">[3]</a> on camera-to-video generation. For identity-to-video, due to a lack of open-source multiple identities video generation method, we compare with the internal 1B model: ConceptMaster <a href="#ref-conceptmaster">[4]</a>. We compare FullDiT with Ctrl-Adapter <a href="#ref-ctrladapter">[5]</a> and ControlVideo <a href="#ref-ctrlvideo">[6]</a> for depth-to-video. We follow the default setting of each model for evaluation. Since most of previous methods can generate only 16 frames of video, we uniformly sample 16 frames from methods that generate more than 16 frames for comparison.
+                </p>
+                <!-- <p><br></p> -->
+              </td>
+            </div>
+
+            <div class="columns is-centered has-text-justified">
+              <td colspan="3">
+                <img src="pics/metrics_comparison.png" width="70%" />
+              </td>
+            </div>
+
+            <div class="content has-text-justified my_link">
+              <td colspan="3">
+                <p>
+                <b>Qualitative comparison of FullDiT and previous single control video generation methods.</b> We present identity-to-video results compared with ConceptMaster<a href="#ref-conceptmaster">[4]</a>, depth-to-video results compared with Ctrl-Adapter<a href="#ref-ctrladapter">[5]</a> and ControlVideo<a href="#ref-ctrlvideo">[6]</a>, and camera-to-video results compared with MotionCtrl<a href="#ref-motionctrl">[1]</a>, CamI2V<a href="#ref-cami2v">[3]</a>, and CameraCtrl<a href="#ref-cameractrl">[2]</a>. Results denoted with * are image-to-video methods.
+                </p>
+                <!-- <p><br></p> -->
+              </td>
+            </div>
+
+            <div class="columns is-centered has-text-justified">
+              <td colspan="3">
+                <img src="pics/visual_comparison.png" width="90%" />
+              </td>
+            </div>
+              
+        </div>
+  </section>
+
 
   <section class="hero">
     <div class="container is-max-desktop">
@@ -151,6 +252,7 @@
             <br>
             <h2 class="title is-2">Demos</h2>
             <h2 class="title is-4">Camera+Identities+Depth+Text ⮕ Video</h2>
+            <h2 class="title is-6">(Results of a small model with around 1B parameter)</h2>
             <div class="content has-text-justified">
               <div id="results-carousel" class="carousel results-carousel" align="center">
                 <div class="item item-video1">
@@ -319,6 +421,7 @@
             </div>
 
             <h2 class="title is-4">Camera+Identities+Text ⮕ Video</h2>
+            <h2 class="title is-6">(Results of a small model with around 1B parameter)</h2>
             <div class="content has-text-justified">
               <div id="results-carousel" class="carousel results-carousel" align="center">
                 <div class="item item-video1">
@@ -406,6 +509,7 @@
             </div>
 
             <h2 class="title is-4">Identities+Depth+Text ⮕ Video</h2>
+            <h2 class="title is-6">(Results of a small model with around 1B parameter)</h2>
             <div class="content has-text-justified">
               <div id="results-carousel" class="carousel results-carousel" align="center">
                 <div class="item item-video1">
@@ -493,6 +597,7 @@
             </div>
 
             <h2 class="title is-4">Identities+Text ⮕ Video</h2>
+            <h2 class="title is-6">(Results of a small model with around 1B parameter)</h2>
             <div class="content has-text-justified">
               <div id="results-carousel" class="carousel results-carousel" align="center">
                 <div class="item item-video1">
@@ -580,6 +685,7 @@
             </div>
 
             <h2 class="title is-4">Depth+Text ⮕ Video</h2>
+            <h2 class="title is-6">(Results of a small model with around 1B parameter)</h2>
             <div class="content has-text-justified">
               <div id="results-carousel" class="carousel results-carousel" align="center">
                 <div class="item item-video1">
@@ -667,6 +773,7 @@
             </div>
 
             <h2 class="title is-4">Camera+Text ⮕ Video</h2>
+            <h2 class="title is-6">(Results of a small model with around 1B parameter)</h2>
             <div class="content has-text-justified">
               <div id="results-carousel" class="carousel results-carousel" align="center">
                 <div class="item item-video1">
@@ -760,91 +867,6 @@
   </section>
 
 
-
-  <!-- Paper abstract -->
-  <section class="section hero is-light">
-    <div class="container is-max-desktop">
-      <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
-          <h2 class="title is-2">Abstract</h2>
-          <div class="content has-text-justified">
-            <p>
-              Current video generative foundation models primarily focus on text-to-video tasks, providing limited control for fine-grained video content creation. Although adapter-based approaches (e.g., ControlNet) enable additional controls with minimal fine-tuning, they encounter challenges when integrating multiple conditions, including: <b>branch conflicts</b> between independently trained adapters, <b>parameter redundancy</b> leading to increased computational cost, and <b>suboptimal performance</b> compared to full fine-tuning. To address these challenges, we introduce <b>FullDiT</b>, a unified foundation model for video generation that seamlessly integrates multiple conditions via unified full-attention mechanisms. By fusing multi-task conditions into a unified sequence representation and leveraging the long-context learning ability of full self-attention to capture condition dynamics, FullDiT reduces parameter overhead, avoids conditions conflict, and shows scalability and emergent ability. We further introduce <b>FullBench</b> for multi-task video generation evaluation. Experiments demonstrate that FullDiT achieves state-of-the-art results, highlighting the efficacy of full-attention in complex multi-task video generation.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- End paper abstract -->
-
-
-
-  <!-- Paper poster -->
-  <section class="hero is-small">
-    <div class="hero-body">
-      <div class="container is-max-desktop">
-        <div class="columns is-centered has-text-centered">
-          <div class="column is-">
-            <h2 class="title is-2">Method</h2>
-            <div class="content has-text-justified">
-              <td colspan="3">
-                <p>
-                  <b>Overview of FullDiT architecture and comparison with adapter-based models.</b> We present the diffusion process of the multi-task video generative model on the left. For research purposes, this paper shows input conditions consisting of <b>temporal-only</b> cameras, <b>spatial-only</b> identities, and <b>temporal-spatial</b> depth video. Additional conditions can be incorporated into this model architecture for broader applications. Shown in (a), FullDiT unifies various inputs with procedures: (1) patchify and tokenize the input condition to a unified sequence representation, (2) concat all sequences together to a longer one, and (3) learn condition dynamics with full self-attention. By comparison, earlier adapter-based approaches (shown in (b)) use distinct adapter designs that operate independently to process various inputs. The subscript of each block signifies its layer index, while the superscript indicates the condition index associated with the module.
-                </p>
-              </td>
-            </div>
-            <div class="columns is-centered has-text-justified">
-              <td colspan="3">
-                <img src="pics/fig_pipe.png" width="100%" />
-              </td>
-            </div>
-            <p><br></p>
-          </div>
-  </section>
-  <!--End paper poster -->
-
-
-  <!-- Video grid single ref -->
-  <section class="hero is-small is-light">
-    <div class="hero-body">
-      <div class="container is-max-desktop">
-        <div class="columns is-centered has-text-centered">
-          <div class="column custom-width">
-            <h2 class="title is-2">Comparisons</h2>
-
-            <div class="content has-text-justified my_link">
-              <td colspan="3">
-                <p>
-                  <b>Quantitative comparison of single task video generation.</b> We compare FullDiT with MotionCtrl<a href="#ref-motionctrl">[1]</a>, CameraCtrl <a href="#ref-cameractrl">[2]</a>, and CamI2V <a href="#ref-cami2v">[3]</a> on camera-to-video generation. For identity-to-video, due to a lack of open-source multiple identities video generation method, we compare with the internal 1B model: ConceptMaster <a href="#ref-conceptmaster">[4]</a>. We compare FullDiT with Ctrl-Adapter <a href="#ref-ctrladapter">[5]</a> and ControlVideo <a href="#ref-ctrlvideo">[6]</a> for depth-to-video. We follow the default setting of each model for evaluation. Since most of previous methods can generate only 16 frames of video, we uniformly sample 16 frames from methods that generate more than 16 frames for comparison.
-                </p>
-                <!-- <p><br></p> -->
-              </td>
-            </div>
-
-            <div class="columns is-centered has-text-justified">
-              <td colspan="3">
-                <img src="pics/metrics_comparison.png" width="70%" />
-              </td>
-            </div>
-
-            <div class="content has-text-justified my_link">
-              <td colspan="3">
-                <p>
-                <b>Qualitative comparison of FullDiT and previous single control video generation methods.</b> We present identity-to-video results compared with ConceptMaster<a href="#ref-conceptmaster">[4]</a>, depth-to-video results compared with Ctrl-Adapter<a href="#ref-ctrladapter">[5]</a> and ControlVideo<a href="#ref-ctrlvideo">[6]</a>, and camera-to-video results compared with MotionCtrl<a href="#ref-motionctrl">[1]</a>, CamI2V<a href="#ref-cami2v">[3]</a>, and CameraCtrl<a href="#ref-cameractrl">[2]</a>. Results denoted with * are image-to-video methods.
-                </p>
-                <!-- <p><br></p> -->
-              </td>
-            </div>
-
-            <div class="columns is-centered has-text-justified">
-              <td colspan="3">
-                <img src="pics/visual_comparison.png" width="90%" />
-              </td>
-            </div>
-              
-        </div>
-  </section>
   
   <section class="hero is-small">
     <div class="hero-body">
